@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source '../../app/**/*.php';
+
+@theme {
+    /* Police de l'application : Plus Jakarta Sans, en graisses allégées */
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 500;
+    --font-weight-bold: 600;
+    --font-weight-extrabold: 700;
+
+    /* Couleur primaire GC-Manager : #3d63dd */
+    --color-primary-50: #eef2fd;
+    --color-primary-100: #dfe6fb;
+    --color-primary-200: #c4d1f7;
+    --color-primary-300: #9bb1f0;
+    --color-primary-400: #6c88e7;
+    --color-primary-500: #5174e2;
+    --color-primary-600: #3d63dd;
+    --color-primary-700: #2f4fc0;
+    --color-primary-800: #2a439b;
+    --color-primary-900: #273c7a;
+    --color-primary-950: #172248;
+
+    --color-ink: #0f1830;
+    --color-canvas: #f4f6fb;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+@layer base {
+    body {
+        @apply bg-canvas text-slate-700 antialiased;
+    }
+    /* La police monospace est plus large : les colonnes de grille peuvent rétrécir */
+    .grid > * {
+        min-width: 0;
+    }
+}
+.num {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* Barre de défilement quasi invisible (sidebar) */
+.scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.06) transparent;
+}
+.scrollbar-thin:hover {
+    scrollbar-color: rgb(255 255 255 / 0.18) transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgb(255 255 255 / 0.06);
+    border-radius: 9999px;
+}
+.scrollbar-thin:hover::-webkit-scrollbar-thumb {
+    background: rgb(255 255 255 / 0.18);
+}
+
+/* ---------- Boutons ---------- */
+@utility btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold
+        transition focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 disabled:opacity-50 whitespace-nowrap;
+}
+@layer components {
+    .btn-primary {
+        @apply btn bg-primary-600 text-white shadow-sm shadow-primary-600/20 hover:bg-primary-700;
+    }
+    .btn-secondary {
+        @apply btn bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50 hover:ring-slate-300;
+    }
+    .btn-danger {
+        @apply btn bg-white text-red-600 ring-1 ring-red-200 hover:bg-red-50;
+    }
+    .btn-success {
+        @apply btn bg-emerald-600 text-white hover:bg-emerald-700;
+    }
+    .btn-ghost {
+        @apply btn text-slate-500 hover:bg-slate-100 hover:text-slate-800 px-2.5;
+    }
+    .btn-sm {
+        @apply px-2.5 py-1.5 text-xs;
+    }
+
+    /* ---------- Formulaires ---------- */
+    .label {
+        @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500;
+    }
+    .input {
+        @apply block w-full rounded-lg border-0 bg-white px-3 py-2 text-sm text-ink ring-1 ring-slate-200
+        placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500 focus:outline-none transition;
+    }
+    select.input {
+        @apply pr-8;
+    }
+    textarea.input {
+        @apply min-h-[80px];
+    }
+    .input-error {
+        @apply ring-red-400;
+    }
+    .error {
+        @apply mt-1 text-xs font-medium text-red-600;
+    }
+
+    /* ---------- Cartes & tableaux ---------- */
+    .card {
+        @apply rounded-2xl bg-white ring-1 ring-slate-200/70 shadow-[0_1px_2px_rgba(15,24,48,0.04)];
+    }
+    .card-header {
+        @apply flex items-center justify-between gap-3 border-b border-slate-100 px-5 py-4;
+    }
+    .card-title {
+        @apply text-sm font-bold text-ink;
+    }
+    .card-body {
+        @apply p-5;
+    }
+
+    .table {
+        @apply w-full text-left text-sm;
+    }
+    .table thead th {
+        @apply bg-slate-50/80 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap;
+    }
+    .table tbody td {
+        @apply border-t border-slate-100 px-4 py-3 align-middle;
+    }
+    .table tbody tr {
+        @apply transition hover:bg-primary-50/40;
+    }
+
+    .page-title {
+        @apply text-xl font-extrabold tracking-tight text-ink;
+    }
+    .page-subtitle {
+        @apply mt-0.5 text-sm text-slate-500;
+    }
+
+    .dl dt {
+        @apply text-xs font-medium text-slate-400;
+    }
+    .dl dd {
+        @apply text-sm font-medium text-ink;
+    }
+
+    /* ---------- Navigation ---------- */
+    .nav-link {
+        @apply flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-medium text-slate-400 transition hover:bg-white/5 hover:text-white;
+    }
+    .nav-link.active {
+        @apply bg-primary-600 text-white shadow-lg shadow-primary-900/40;
+    }
+    .nav-section {
+        @apply px-3 pt-5 pb-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500;
+    }
+
+    .tab {
+        @apply border-b-2 border-transparent px-1 pb-3 text-sm font-semibold whitespace-nowrap text-slate-500 hover:text-ink;
+    }
+    .tab.active {
+        @apply border-primary-600 text-primary-700;
+    }
+}
